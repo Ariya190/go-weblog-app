@@ -1,5 +1,7 @@
 # Weblog Application
 
+- **Live URL:** https://weblog-app-2dpm.onrender.com
+- **GitHub Repository:** https://github.com/Ariya190/go-weblog-app
 Build a weblog application using Go, Echo, and PostgreSQL. You are free to build this using either Server-Side Rendering (SSR) or as a Single Page Application (SPA) with an API.
 
 ---
