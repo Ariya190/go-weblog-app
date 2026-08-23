@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Post.Title}}</title>
+    <style>
+        .comment { background: #f8f9fa; padding: 10px; margin: 8px 0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <a href="/">&larr; Back to Feed</a>
+    <h2>{{.Post.Title}}</h2>
+    <p>By <strong>{{.Post.AuthorName}}</strong> | {{.Post.CreatedAt.Format "2006-01-02 15:04"}} | 
+       <span>{{if .Post.IsPrivate}}🔒 Private{{else}}🌐 Public{{end}}</span>
+    </p>
+
+    {{if .Post.ImageURL}}
+    <div>
+        <img src="{{.Post.ImageURL}}" alt="{{.Post.Title}}" style="max-width: 500px; border-radius: 6px;">
+    </div>
+    {{end}}
+
+    <p style="white-space: pre-wrap; font-size: 1.1rem; line-height: 1.6;">{{.Post.Content}}</p>
+
+    <hr>
+    <h3>Comments</h3>
+    <form method="POST" action="/weblog/{{.Post.ID}}/comments">
+        <textarea name="content" rows="3" cols="50" placeholder="Write a comment..." required></textarea><br>
+        <button type="submit">Post Comment</button>
+    </form>
+
+    <div style="margin-top: 20px;">
+        {{range .Comments}}
+        <div class="comment">
+            <strong>{{.AuthorName}}</strong>: {{.Content}}
+            <div style="font-size: 0.8rem; color: #666;">{{.CreatedAt.Format "2006-01-02 15:04"}}</div>
+        </div>
+        {{else}}
+        <p>No comments yet.</p>
+        {{end}}
+    </div>
+</body>
+</html>

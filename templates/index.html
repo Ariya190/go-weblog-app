@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weblog - Feed</title>
+    <style>
+        .card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 6px; }
+        .tag { background: #eee; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <h2>Welcome, {{.Username}}</h2>
+    <a href="/posts/new"><button>Create New Post</button></a>
+    <form method="POST" action="/logout" style="display:inline; margin-left: 10px;">
+        <button type="submit">Logout</button>
+    </form>
+
+    <hr>
+    <h3>Recent Posts</h3>
+    {{$currentUserID := .UserID}}
+    {{range .Posts}}
+    <div class="card">
+        <h4><a href="/weblog/{{.ID}}">{{.Title}}</a></h4>
+        <p>By <strong>{{.AuthorName}}</strong> on {{.CreatedAt.Format "2006-01-02 15:04"}} | 
+           <span class="tag">{{if .IsPrivate}}Private{{else}}Public{{end}}</span>
+        </p>
+        {{if eq .AuthorID $currentUserID}}
+        <form method="POST" action="/posts/{{.ID}}/delete" style="display:inline;">
+            <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+        </form>
+        {{end}}
+    </div>
+    {{else}}
+    <p>No posts available.</p>
+    {{end}}
+</body>
+</html>

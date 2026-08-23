@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weblog - Login</title>
+</head>
+<body>
+    <h2>Login to Weblog</h2>
+    {{if .Error}}<p style="color: red;">{{.Error}}</p>{{end}}
+    <form method="POST" action="/login">
+        <div><label>Username:</label><input type="text" name="username" required></div><br>
+        <div><label>Password:</label><input type="password" name="password" required></div><br>
+        <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="/signup">Signup</a></p>
+</body>
+</html>
